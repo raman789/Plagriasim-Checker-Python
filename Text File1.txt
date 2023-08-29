@@ -1,0 +1,18 @@
+If we do a regular JOIN (with none of the keywords INNER, OUTER, LEFT or RIGHT), then we get all 
+records that match in the appropriate way in the two tables, and records in both incoming tables that 
+do not match are not reported:
+mysql> select name, phone, selling from demo_people join demo_property on
+demo_people.pid = demo_property.pid;
+If we do a LEFT JOIN, we get all records that match in the same way and IN ADDITION we get an extra 
+record for each unmatched record in the left table of the join - thus ensuring that every PERSON gets a 
+mention:
+mysql> select name, phone, selling from demo_people left join demo_property
+on demo_people.pid = demo_property.pid;
+If we do a RIGHT JOIN, we get all the records that match and IN ADDITION we get an extra record for 
+each unmatched record in the right table of the join - in example, that means that each property gets a 
+mention even if we don't have seller details:
+mysql> select name, phone, selling from demo_people right join demo_property
+on demo_people.pid = demo_property.pid;
+An INNER JOIN does a full join, just like the first example, and the word OUTER may be added
+after the word LEFT or RIGHT in the last two examples - it's provided for ODBC compatibility
+and doesn't add an extra capabilities.
